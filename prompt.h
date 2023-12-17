@@ -142,27 +142,27 @@ void bs_set_prompt() {
     char *ps1 = getenv("PS1");
     char *ps1_line_2 = getenv("PS1_LINE_2");
     char *ps1_right = getenv("PS1_RIGHT");
-
-    if (ps1 != NULL && ps1_right != NULL) {
-        // Parse PS1
-        char *ps1_parsed = parse_zsh_escape_sequences(ps1);
-
-        // Parse PS1_RIGHT
-        char *ps1_right_parsed = parse_zsh_escape_sequences(ps1_right);
-
-        anchor_strings(ps1_parsed,ps1_right_parsed);
-
-        if(ps1_line_2 != NULL){
-            // Parse PS1 ln 2
-            char *ps1_l2_parsed = parse_zsh_escape_sequences(ps1_line_2);
-            printf("%s",ps1_l2_parsed);
-            free(ps1_l2_parsed);
-        }
-
-        // Free allocated memory
-        free(ps1_parsed);
-        free(ps1_right_parsed);
-    } else {
-        printf("Bombshell>> ");
+    if(ps1 == NULL){
+        ps1 = "%B\033[96m%n\033[0m\033[93m@%B\033[34m%m\033[0m:\033[92m%B%p\033[0m";
+        ps1_right = "\033[95mDate\033[93m:\033[92m%d\033[0m - \033[95mTime\033[93m:\033[92m%T";
+        ps1_line_2 = "\033[95m%B%#\033[0m";
     }
+
+    // Parse PS1
+    char *ps1_parsed = parse_zsh_escape_sequences(ps1);
+
+    // Parse PS1_RIGHT
+    char *ps1_right_parsed = parse_zsh_escape_sequences(ps1_right);
+    anchor_strings(ps1_parsed,ps1_right_parsed);
+
+    if(ps1_line_2 != NULL){
+        // Parse PS1 ln 2
+        char *ps1_l2_parsed = parse_zsh_escape_sequences(ps1_line_2);
+        printf("%s",ps1_l2_parsed);
+        free(ps1_l2_parsed);
+    }
+
+    // Free allocated memory
+    free(ps1_parsed);
+    free(ps1_right_parsed);
 }

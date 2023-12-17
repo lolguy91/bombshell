@@ -9,7 +9,7 @@
 
 #define BS_RL_BUFSIZE 512
 #define BS_TOK_BUFSIZE 64
-#define BS_TOK_DELIM " \t\r\n\a"
+#define BS_TOK_DELIM " \t\r\a"
 //RC support disabled cuz bugs
 //#define BS_DEFAULT_RC_PATH "~/.zshrc"
 
