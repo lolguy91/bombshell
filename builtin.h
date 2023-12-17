@@ -34,22 +34,11 @@ int bs_cd(char **args)
   return 1;
 }
 int bs_exit(char **args){
-  return 0;
+  exit(EXIT_SUCCESS);
 }
 int bs_export(char **args) {
-    if (args[1] != NULL && strchr(args[1], '=')) {
-        char *variable = strtok(args[1], "=");
-        char *value = strtok(NULL, "=");
-        if (value != NULL) {
-            bs_set_env_variable(variable, value);
-            return 1; // Return 1 for success
-        } else {
-            printf("Invalid format: %s\n", args[1]);
-        }
-    } else {
-        printf("Usage: export <variable>=<value>\n");
-    }
-    return 0; // Return 0 for failure
+    putenv(args[1]);
+    return 1;
 }
 int bs_getenv(char **args){
     if (args[1] == NULL) {
@@ -70,7 +59,7 @@ int bs_getenv(char **args){
 int bs_help(char **args){
   int i;
   printf("This is Bobmbshell!\n");
-  printf("copyright RoidsOS Foundation!\n");
+  printf("Copyright RoidsOS Foundation!\n");
   printf("Builtin commands:\n");
 
   for (i = 0; i < bs_num_builtins(); i++) {
